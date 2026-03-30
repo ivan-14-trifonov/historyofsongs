@@ -1,7 +1,6 @@
 import { getContentTree, getContentBySlug, getBreadcrumb } from '@/lib/content';
-import Sidebar from '@/components/Sidebar';
-import MarkdownContent from '@/components/MarkdownContent';
 import Breadcrumb from '@/components/Breadcrumb';
+import MarkdownContent from '@/components/MarkdownContent';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
@@ -11,7 +10,6 @@ interface PageProps {
 export default async function ContentPage({ params }: PageProps) {
   const { slug } = await params;
   const slugPath = slug.map(decodeURIComponent).join('/');
-  const contentTree = getContentTree();
   const content = getContentBySlug(slugPath);
   const breadcrumb = getBreadcrumb(slugPath);
 
@@ -25,13 +23,12 @@ export default async function ContentPage({ params }: PageProps) {
         <h1><a href="/">История песен</a></h1>
       </header>
       
-      <div className="article-wrapper">
-        <Sidebar items={contentTree} currentPath={slugPath} />
-        <article className="article">
-          <Breadcrumb items={breadcrumb} />
+      <main className="article-main">
+        <Breadcrumb items={breadcrumb} />
+        <article className="article-content">
           <MarkdownContent content={content.content} />
         </article>
-      </div>
+      </main>
       
       <footer className="page-footer">
         <p>© 2026 История песен</p>
