@@ -1,28 +1,23 @@
 {
   "name": "historyofsongs",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "build": "tsc && node dist/build.js",
-    "dev": "tsc && node dist/build.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ivan-14-trifonov/historyofsongs.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ivan-14-trifonov/historyofsongs/issues"
-  },
-  "homepage": "https://github.com/ivan-14-trifonov/historyofsongs#readme",
-  "description": "",
-  "devDependencies": {
-    "@types/node": "^25.5.0",
+  "dependencies": {
     "gray-matter": "^4.0.3",
-    "marked": "^17.0.5",
-    "typescript": "^6.0.2"
+    "next": "14",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-markdown": "^10",
+    "remark-gfm": "^4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "typescript": "^5"
   }
 }
