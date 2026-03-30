@@ -12,8 +12,15 @@ export default function Home() {
       
       <main className="home-main">
         <div className="home">
-          <h2>Добро пожаловать</h2>
-          <p>Выберите материал в навигации слева.</p>
+          <div className="quote-block">
+            <blockquote>
+              <p>Уважение к прошлому — вот черта, отличающая образованность от дикости.</p>
+            </blockquote>
+            <cite>
+              Пушкин А. С. Наброски статьи о русской литературе // Полное собрание сочинений: В 16 т. — М.; Л.: Изд-во АН СССР, 1937—1959.
+              Т. 11. — С. 184.
+            </cite>
+          </div>
           
           {contentTree.length > 0 && (
             <div className="content-preview">

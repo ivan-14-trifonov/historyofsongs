@@ -295,6 +295,37 @@ footer {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Цитата на главной */
+.quote-block {
+  background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+  border-left: 4px solid #0066cc;
+  padding: 25px 30px;
+  margin: 20px 0 30px;
+  border-radius: 0 8px 8px 0;
+}
+
+.quote-block blockquote {
+  margin: 0 0 15px 0;
+  padding: 0;
+  border: none;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #333;
+  line-height: 1.6;
+}
+
+.quote-block blockquote p {
+  margin: 0;
+}
+
+.quote-block cite {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  font-style: normal;
+  line-height: 1.5;
+}
+
 .home-main h2 {
   margin-bottom: 10px;
 }
