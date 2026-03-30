@@ -144,6 +144,13 @@ footer {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  word-break: break-word;
+}
+
+.breadcrumb a,
+.breadcrumb span {
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 .markdown-content {
