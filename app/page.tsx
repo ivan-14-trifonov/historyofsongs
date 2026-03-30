@@ -16,7 +16,7 @@ export default function Home() {
             {contentTree.map((item) => (
               <li key={item.slug}>
                 {item.type === 'folder' ? (
-                  <a href={`/content/${item.slug}`}>{item.title}</a>
+                  <a href={`/folder/${item.slug}`}>{item.title}</a>
                 ) : (
                   <a href={`/content/${item.slug}`}>{item.title}</a>
                 )}

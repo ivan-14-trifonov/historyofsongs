@@ -32,7 +32,7 @@ function FolderItem({ item, currentPath }: { item: ContentItem; currentPath?: st
   
   return (
     <div className={`folder ${isActive ? 'active' : ''}`}>
-      <strong>{item.title}</strong>
+      <a href={`/folder/${item.slug}`} className={isActive ? 'active' : ''}><strong>{item.title}</strong></a>
       {item.children && item.children.length > 0 && (
         <ul>
           {item.children.map((child) => (
@@ -55,8 +55,8 @@ function FileItem({ item, currentPath }: { item: ContentItem; currentPath?: stri
   const isActive = currentPath === item.slug;
   
   return (
-    <Link href={href} className={isActive ? 'active' : ''}>
+    <a href={href} className={isActive ? 'active' : ''}>
       {item.title}
-    </Link>
+    </a>
   );
 }

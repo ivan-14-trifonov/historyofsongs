@@ -252,6 +252,12 @@ footer {
   text-decoration: none;
 }
 
+.empty-folder {
+  color: #666;
+  font-style: italic;
+  padding: 20px 0;
+}
+
 @media (max-width: 768px) {
   .content-page {
     flex-direction: column;
@@ -264,5 +270,92 @@ footer {
     padding-right: 0;
     padding-bottom: 20px;
     margin-bottom: 20px;
+  }
+}
+
+/* Отдельные страницы папок */
+.folder-page-content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-header {
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h1 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.page-header h1 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.folder-main {
+  flex: 1;
+  background: #fff;
+  padding: 30px;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.folder-main h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.page-footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+/* Страницы статей */
+.content-article-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-wrapper {
+  flex: 1;
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  background: #f5f5f5;
+}
+
+.article-wrapper .sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+.article-wrapper .article {
+  flex: 1;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .article-wrapper {
+    flex-direction: column;
+  }
+  
+  .article-wrapper .sidebar {
+    width: 100%;
   }
 }
