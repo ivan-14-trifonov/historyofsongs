@@ -89,3 +89,36 @@ export function getBreadcrumb(slug: string): { name: string; path: string }[] {
   
   return breadcrumb;
 }
+
+export function getFolderContent(folderSlug: string): ContentItem[] | null {
+  const tree = getContentTree();
+  
+  if (!folderSlug) {
+    return tree;
+  }
+  
+  function findFolder(items: ContentItem[], parts: string[]): ContentItem[] | null {
+    if (parts.length === 0) {
+      return items;
+    }
+    
+    const [current, ...rest] = parts;
+    
+    for (const item of items) {
+      const itemName = item.slug.split('/').pop();
+      if (itemName === current) {
+        if (rest.length === 0) {
+          return item.type === 'folder' ? item.children || [] : null;
+        }
+        if (item.type === 'folder' && item.children) {
+          return findFolder(item.children, rest);
+        }
+      }
+    }
+    
+    return null;
+  }
+  
+  const parts = folderSlug.split(path.sep).filter(Boolean);
+  return findFolder(tree, parts);
+}

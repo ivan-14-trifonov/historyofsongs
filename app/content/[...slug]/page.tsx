@@ -1,7 +1,8 @@
-import { getContentTree, getContentBySlug, getBreadcrumb } from '@/lib/content';
+import { getContentTree, getContentBySlug, getBreadcrumb, getFolderContent } from '@/lib/content';
 import Sidebar from '@/components/Sidebar';
 import MarkdownContent from '@/components/MarkdownContent';
 import Breadcrumb from '@/components/Breadcrumb';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
@@ -15,7 +16,34 @@ export default async function ContentPage({ params }: PageProps) {
   const content = getContentBySlug(slugPath);
   const breadcrumb = getBreadcrumb(slugPath);
 
+  // Если файл не найден, пробуем отобразить содержимое папки
   if (!content) {
+    const folderItems = getFolderContent(slugPath);
+    if (folderItems && folderItems.length > 0) {
+      return (
+        <div className="content-page">
+          <Sidebar items={contentTree} currentPath={slugPath} />
+          <article className="article">
+            <Breadcrumb items={breadcrumb} />
+            <h1>{breadcrumb.length > 0 ? breadcrumb[breadcrumb.length - 1].name : 'Главная'}</h1>
+            <div className="folder-list">
+              <h3>Файлы в этой папке:</h3>
+              <ul>
+                {folderItems.map((item) => (
+                  <li key={item.slug}>
+                    {item.type === 'folder' ? (
+                      <Link href={`/content/${item.slug}`}>📁 {item.title}</Link>
+                    ) : (
+                      <Link href={`/content/${item.slug}`}>📄 {item.title}</Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        </div>
+      );
+    }
     notFound();
   }
 
