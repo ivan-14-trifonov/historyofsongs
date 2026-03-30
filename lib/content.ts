@@ -105,7 +105,8 @@ export function getFolderContent(folderSlug: string): ContentItem[] | null {
     const [current, ...rest] = parts;
     
     for (const item of items) {
-      const itemName = item.slug.split('/').pop();
+      const slugParts = item.slug.split('/').filter(Boolean);
+      const itemName = slugParts[slugParts.length - 1];
       if (itemName === current) {
         if (rest.length === 0) {
           return item.type === 'folder' ? item.children || [] : null;
@@ -119,6 +120,6 @@ export function getFolderContent(folderSlug: string): ContentItem[] | null {
     return null;
   }
   
-  const parts = folderSlug.split(path.sep).filter(Boolean);
+  const parts = folderSlug.split('/').filter(Boolean);
   return findFolder(tree, parts);
 }
