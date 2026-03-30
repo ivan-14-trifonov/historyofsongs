@@ -9,9 +9,5 @@ export default function FolderLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="folder-page">
-      {children}
-    </div>
-  );
+  return children;
 }

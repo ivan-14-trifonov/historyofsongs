@@ -14,15 +14,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <div className="container">
-          <header>
-            <h1><a href="/">История песен</a></h1>
-          </header>
-          <main>{children}</main>
-          <footer>
-            <p>© 2026 История песен</p>
-          </footer>
-        </div>
+        {children}
       </body>
     </html>
   );

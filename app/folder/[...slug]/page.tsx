@@ -27,7 +27,6 @@ export default async function FolderPage({ params }: FolderPageProps) {
       
       <main className="folder-main">
         <Breadcrumb items={breadcrumb} type="folder" />
-        <h1>{folderName}</h1>
         
         {folderItems.length > 0 ? (
           <div className="folder-list">

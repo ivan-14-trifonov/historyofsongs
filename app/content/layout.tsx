@@ -9,9 +9,5 @@ export default function ContentLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="content-article-page">
-      {children}
-    </div>
-  );
+  return children;
 }

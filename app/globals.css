@@ -273,6 +273,45 @@ footer {
   }
 }
 
+/* Главная страница */
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-main {
+  flex: 1;
+  background: #f5f5f5;
+  padding: 20px;
+}
+
+.home-main .home {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home-main h2 {
+  margin-bottom: 10px;
+}
+
+.content-preview {
+  margin-top: 20px;
+}
+
+.content-preview ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.content-preview li {
+  padding: 8px 0;
+}
+
 /* Отдельные страницы папок */
 .folder-page-content {
   min-height: 100vh;
