@@ -366,6 +366,13 @@ footer {
   text-decoration: none;
 }
 
+.header-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin: 5px 0 0 0;
+  font-weight: normal;
+}
+
 .folder-main {
   flex: 1;
   background: #fff;

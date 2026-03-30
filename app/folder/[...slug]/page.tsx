@@ -22,7 +22,8 @@ export default async function FolderPage({ params }: FolderPageProps) {
   return (
     <div className="folder-page-content">
       <header className="page-header">
-        <h1><a href="/">История песен</a></h1>
+        <h1><a href="/">Музыкальная литература МСЦ ЕХБ</a></h1>
+        <p className="header-subtitle">База знаний</p>
       </header>
       
       <main className="folder-main">

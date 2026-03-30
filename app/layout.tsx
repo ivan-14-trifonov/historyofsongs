@@ -2,8 +2,8 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'История песен',
-  description: 'История христианских песен',
+  title: 'Музыкальная литература МСЦ ЕХБ',
+  description: 'База знаний',
 };
 
 export default function RootLayout({

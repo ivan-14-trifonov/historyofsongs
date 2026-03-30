@@ -7,7 +7,8 @@ export default function Home() {
   return (
     <div className="home-page">
       <header className="page-header">
-        <h1><a href="/">История песен</a></h1>
+        <h1><a href="/">Музыкальная литература МСЦ ЕХБ</a></h1>
+        <p className="header-subtitle">База знаний</p>
       </header>
       
       <main className="home-main">
