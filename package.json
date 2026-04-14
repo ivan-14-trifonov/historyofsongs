@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "rm -rf content && git clone --depth 1 https://github.com/ivan-14-trifonov/songs_info.git content && next build",
+    "build": "rm -rf content && git clone --depth 1 https://github.com/ivan-14-trifonov/songs_info.git content && rm -rf content/.git && next build",
     "start": "next start"
   },
   "dependencies": {
