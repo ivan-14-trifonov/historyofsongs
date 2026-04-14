@@ -440,3 +440,38 @@ footer {
 .article-content {
   max-width: 800px;
 }
+
+/* Sources Badge */
+.sources-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  white-space: nowrap;
+}
+
+.sources-badge svg {
+  flex-shrink: 0;
+}
+
+.sources-badge--verified {
+  background: #e6f9ee;
+  color: #1a7f4c;
+  border: 1px solid #b7e4cd;
+}
+
+.sources-badge--partial {
+  background: #fff4e5;
+  color: #b36b00;
+  border: 1px solid #ffd699;
+}
+
+.sources-badge--unverified {
+  background: #fde8e8;
+  color: #c0392b;
+  border: 1px solid #f5b7b7;
+}

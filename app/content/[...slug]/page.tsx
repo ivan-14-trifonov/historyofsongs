@@ -1,6 +1,7 @@
 import { getContentTree, getContentBySlug, getBreadcrumb } from '@/lib/content';
 import Breadcrumb from '@/components/Breadcrumb';
 import MarkdownContent from '@/components/MarkdownContent';
+import SourcesBadge from '@/components/SourcesBadge';
 import { notFound } from 'next/navigation';
 
 interface PageProps {
@@ -27,6 +28,7 @@ export default async function ContentPage({ params }: PageProps) {
       <main className="article-main">
         <Breadcrumb items={breadcrumb} />
         <article className="article-content">
+          <SourcesBadge sources={content.data?.sources} />
           <MarkdownContent content={content.content} />
         </article>
       </main>
