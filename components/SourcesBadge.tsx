@@ -2,7 +2,9 @@ interface SourcesBadgeProps {
   sources?: string;
 }
 
-const sourcesConfig = {
+type SourcesKey = 'достоверные_источники' | 'источники_указаны' | 'источники_не_указаны';
+
+const sourcesConfig: Record<SourcesKey, { label: string; className: string; icon: React.ReactNode }> = {
   достоверные_источники: {
     label: 'Достоверные источники',
     className: 'sources-badge sources-badge--verified',
@@ -34,11 +36,11 @@ const sourcesConfig = {
 };
 
 export default function SourcesBadge({ sources }: SourcesBadgeProps) {
-  if (!sources || !sourcesConfig[sources]) {
+  if (!sources || !sourcesConfig[sources as SourcesKey]) {
     return null;
   }
 
-  const config = sourcesConfig[sources];
+  const config = sourcesConfig[sources as SourcesKey];
 
   return (
     <span className={config.className}>
