@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { cloneElement, isValidElement } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -36,7 +37,44 @@ function getTextFromChildren(children: ReactNode): string {
     return children.map(getTextFromChildren).join('');
   }
 
+  if (isValidElement<{ children?: ReactNode }>(children)) {
+    return getTextFromChildren(children.props.children);
+  }
+
   return '';
+}
+
+function stripAudioPrefix(children: ReactNode): ReactNode {
+  let stripped = false;
+
+  function stripNode(node: ReactNode): ReactNode {
+    if (stripped) {
+      return node;
+    }
+
+    if (typeof node === 'string' || typeof node === 'number') {
+      const text = String(node);
+      const nextText = text.replace(/^audio:\s*/i, '');
+
+      if (nextText !== text) {
+        stripped = true;
+      }
+
+      return nextText;
+    }
+
+    if (Array.isArray(node)) {
+      return node.map(stripNode);
+    }
+
+    if (isValidElement<{ children?: ReactNode }>(node)) {
+      return cloneElement(node, undefined, stripNode(node.props.children));
+    }
+
+    return node;
+  }
+
+  return stripNode(children);
 }
 
 function escapeMarkdownLinkText(text: string): string {
@@ -65,6 +103,7 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
 
             if (audioMatch) {
               const label = audioMatch[1].trim();
+              const caption = stripAudioPrefix(children);
               const audioSrc = resolveAssetPath(href, assetBasePath);
 
               return (
@@ -72,7 +111,7 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
                   <audio controls preload="metadata" src={audioSrc}>
                     <a href={audioSrc}>{label}</a>
                   </audio>
-                  {label && <span className="markdown-audio-caption">{label}</span>}
+                  {label && <span className="markdown-audio-caption">{caption}</span>}
                 </span>
               );
             }
