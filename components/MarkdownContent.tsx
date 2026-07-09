@@ -9,15 +9,9 @@ interface MarkdownContentProps {
 }
 
 const spoilerHref = '#markdown-spoiler';
-const alertConfig = {
-  note: 'Примечание',
-  tip: 'Совет',
-  important: 'Важно',
-  warning: 'Внимание',
-  caution: 'Осторожно',
-} as const;
+const alertTypes = ['note', 'tip', 'important', 'warning', 'caution'] as const;
 
-type AlertType = keyof typeof alertConfig;
+type AlertType = typeof alertTypes[number];
 
 function isExternalAssetPath(src: string): boolean {
   return /^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src);
@@ -152,7 +146,6 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
             if (alertType) {
               return (
                 <div className={`markdown-alert markdown-alert-${alertType}`}>
-                  <div className="markdown-alert-title">{alertConfig[alertType]}</div>
                   <div className="markdown-alert-content">{stripAlertMarker(children)}</div>
                 </div>
               );

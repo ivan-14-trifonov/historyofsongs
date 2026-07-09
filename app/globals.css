@@ -285,11 +285,6 @@ footer {
   border-radius: 0 4px 4px 0;
 }
 
-.markdown-alert-title {
-  font-weight: 600;
-  margin-bottom: 0.4rem;
-}
-
 .markdown-alert-content > :last-child {
   margin-bottom: 0;
 }
