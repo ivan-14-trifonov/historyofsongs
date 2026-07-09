@@ -108,10 +108,10 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
 
               return (
                 <span className="markdown-audio">
+                  {label && <span className="markdown-audio-caption">{caption}</span>}
                   <audio controls preload="metadata" src={audioSrc}>
                     <a href={audioSrc}>{label}</a>
                   </audio>
-                  {label && <span className="markdown-audio-caption">{caption}</span>}
                 </span>
               );
             }
