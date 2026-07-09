@@ -9,6 +9,15 @@ interface MarkdownContentProps {
 }
 
 const spoilerHref = '#markdown-spoiler';
+const alertConfig = {
+  note: 'Примечание',
+  tip: 'Совет',
+  important: 'Важно',
+  warning: 'Внимание',
+  caution: 'Осторожно',
+} as const;
+
+type AlertType = keyof typeof alertConfig;
 
 function isExternalAssetPath(src: string): boolean {
   return /^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src);
@@ -79,6 +88,44 @@ function stripAudioPrefix(children: ReactNode): ReactNode {
   return stripNode(children);
 }
 
+function getAlertType(children: ReactNode): AlertType | null {
+  const match = getTextFromChildren(children).trimStart().match(/^\[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]/i);
+  return match ? match[1].toLowerCase() as AlertType : null;
+}
+
+function stripAlertMarker(children: ReactNode): ReactNode {
+  let stripped = false;
+
+  function stripNode(node: ReactNode): ReactNode {
+    if (stripped) {
+      return node;
+    }
+
+    if (typeof node === 'string' || typeof node === 'number') {
+      const text = String(node);
+      const nextText = text.replace(/^\s*\[!(?:NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*/i, '');
+
+      if (nextText !== text) {
+        stripped = true;
+      }
+
+      return nextText;
+    }
+
+    if (Array.isArray(node)) {
+      return node.map(stripNode);
+    }
+
+    if (isValidElement<{ children?: ReactNode }>(node)) {
+      return cloneElement(node, undefined, stripNode(node.props.children));
+    }
+
+    return node;
+  }
+
+  return stripNode(children);
+}
+
 function escapeMarkdownLinkText(text: string): string {
   return text.replace(/([\\[\]])/g, '\\$1');
 }
@@ -98,6 +145,20 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
           img: ({ src = '', alt = '', ...props }) => {
             const imageSrc = resolveAssetPath(src, assetBasePath);
             return <img src={imageSrc} alt={alt} loading="lazy" {...props} />;
+          },
+          blockquote: ({ children }) => {
+            const alertType = getAlertType(children);
+
+            if (alertType) {
+              return (
+                <div className={`markdown-alert markdown-alert-${alertType}`}>
+                  <div className="markdown-alert-title">{alertConfig[alertType]}</div>
+                  <div className="markdown-alert-content">{stripAlertMarker(children)}</div>
+                </div>
+              );
+            }
+
+            return <blockquote>{children}</blockquote>;
           },
           a: ({ href = '', children, ...props }) => {
             const text = getTextFromChildren(children);

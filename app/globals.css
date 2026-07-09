@@ -278,6 +278,47 @@ footer {
   border-radius: 0 4px 4px 0;
 }
 
+.markdown-alert {
+  border-left: 4px solid;
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.markdown-alert-title {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.markdown-alert-content > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-alert-note {
+  border-color: #2f6feb;
+  background: #f0f5ff;
+}
+
+.markdown-alert-tip {
+  border-color: #1a7f37;
+  background: #eef8f1;
+}
+
+.markdown-alert-important {
+  border-color: #8250df;
+  background: #f6f0ff;
+}
+
+.markdown-alert-warning {
+  border-color: #bf8700;
+  background: #fff8e5;
+}
+
+.markdown-alert-caution {
+  border-color: #cf222e;
+  background: #fff1f1;
+}
+
 .markdown-content code {
   background: #f4f4f4;
   padding: 2px 6px;
