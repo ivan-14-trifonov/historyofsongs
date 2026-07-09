@@ -315,6 +315,10 @@ footer {
     padding-bottom: 20px;
     margin-bottom: 20px;
   }
+
+  .markdown-content img {
+    width: 100%;
+  }
 }
 
 /* Главная страница */
