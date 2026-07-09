@@ -120,9 +120,10 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
 
             if (href === spoilerHref) {
               return (
-                <span className="markdown-spoiler" role="button" tabIndex={0}>
-                  {children}
-                </span>
+                <label className="markdown-spoiler-control">
+                  <input className="markdown-spoiler-toggle" type="checkbox" />
+                  <span className="markdown-spoiler">{children}</span>
+                </label>
               );
             }
 

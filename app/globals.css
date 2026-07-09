@@ -219,6 +219,18 @@ footer {
   text-align: center;
 }
 
+.markdown-spoiler-control {
+  display: inline;
+}
+
+.markdown-spoiler-toggle {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .markdown-spoiler {
   display: inline;
   cursor: pointer;
@@ -235,12 +247,15 @@ footer {
   transition: color 0.15s ease, background-color 0.15s ease, background-image 0.15s ease;
 }
 
-.markdown-spoiler:focus,
-.markdown-spoiler:active {
+.markdown-spoiler-toggle:checked + .markdown-spoiler {
   color: inherit;
   background-color: rgba(154, 154, 154, 0.22);
   background-image: none;
+}
+
+.markdown-spoiler-toggle:focus-visible + .markdown-spoiler {
   outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.25);
 }
 
 .markdown-content ul,
