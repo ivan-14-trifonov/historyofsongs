@@ -207,13 +207,16 @@ footer {
   display: block;
   width: 100%;
   max-width: 520px;
+  margin: 0 auto;
 }
 
 .markdown-audio-caption {
   display: block;
-  margin-top: 0.35rem;
+  max-width: 520px;
+  margin: 0.35rem auto 0;
   color: #555;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .markdown-content ul,
