@@ -8,11 +8,20 @@ interface PageProps {
   params: Promise<{ slug: string[] }>;
 }
 
+function encodeUrlPath(path: string): string {
+  return path
+    .split('/')
+    .filter(Boolean)
+    .map(encodeURIComponent)
+    .join('/');
+}
+
 export default async function ContentPage({ params }: PageProps) {
   const { slug } = await params;
   const slugPath = slug.map(decodeURIComponent).join('/');
   const content = getContentBySlug(slugPath);
   const breadcrumb = getBreadcrumb(slugPath);
+  const assetBasePath = `/content-assets/${encodeUrlPath(slugPath)}`;
 
   if (!content) {
     notFound();
@@ -29,7 +38,7 @@ export default async function ContentPage({ params }: PageProps) {
         <Breadcrumb items={breadcrumb} />
         <article className="article-content">
           <SourcesBadge sources={content.data?.sources} />
-          <MarkdownContent content={content.content} />
+          <MarkdownContent content={content.content} assetBasePath={assetBasePath} />
         </article>
       </main>
       

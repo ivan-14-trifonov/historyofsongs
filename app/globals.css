@@ -189,6 +189,14 @@ footer {
   margin-bottom: 1rem;
 }
 
+.markdown-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
 .markdown-content ul,
 .markdown-content ol {
   margin-bottom: 1rem;

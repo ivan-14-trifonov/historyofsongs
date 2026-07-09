@@ -31,6 +31,11 @@ function readDirectory(dirPath: string, basePath: string): ContentItem[] {
     const itemBasePath = path.join(basePath, entry.name);
 
     if (entry.isDirectory()) {
+      const siblingMarkdownPath = path.join(dirPath, `${entry.name}.md`);
+      if (fs.existsSync(siblingMarkdownPath) && !hasMarkdownFiles(itemPath)) {
+        continue;
+      }
+
       const children = readDirectory(itemPath, itemBasePath);
       items.push({
         slug: itemBasePath,
@@ -59,6 +64,24 @@ function readDirectory(dirPath: string, basePath: string): ContentItem[] {
     }
     return a.type === 'folder' ? -1 : 1;
   });
+}
+
+function hasMarkdownFiles(dirPath: string): boolean {
+  const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const itemPath = path.join(dirPath, entry.name);
+
+    if (entry.isDirectory()) {
+      if (hasMarkdownFiles(itemPath)) {
+        return true;
+      }
+    } else if (entry.name.endsWith('.md')) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 export function getContentBySlug(slug: string): { content: string; data: Record<string, any> } | null {

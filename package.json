@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "rm -rf content && git clone --depth 1 https://github.com/ivan-14-trifonov/songs_info.git content && rm -rf content/.git && next build",
+    "sync-content-assets": "node scripts/sync-content-assets.mjs",
+    "build": "rm -rf content && git clone --depth 1 https://github.com/ivan-14-trifonov/songs_info.git content && rm -rf content/.git && npm run sync-content-assets && next build",
     "start": "next start"
   },
   "dependencies": {

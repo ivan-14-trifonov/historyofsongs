@@ -59,6 +59,25 @@ sources: достоверные_источники
 Текст статьи...
 ```
 
+### Картинки в Markdown
+
+Для статьи можно положить картинки в одноимённую папку рядом с Markdown-файлом:
+
+```text
+content/
+├── oxyrhynchus-hymn.md
+└── oxyrhynchus-hymn/
+    └── manuscript.jpg
+```
+
+В тексте статьи используйте обычный Markdown-синтаксис:
+
+```markdown
+![Оксиринхский гимн](manuscript.jpg)
+```
+
+Во время сборки папки с картинками копируются в `public/content-assets/`, а относительные пути картинок в Markdown открываются от папки текущей статьи. Внешние URL и абсолютные пути вида `/images/file.jpg` остаются без изменений.
+
 Поле `sources` указывает на статус источников. Допустимые значения:
 
 - `достоверные_источники` — зелёный бейдж с галочкой
@@ -114,14 +133,15 @@ git pull origin main
 При каждом деплое Vercel автоматически клонирует контент-репозиторий перед сборкой. Это реализовано в `package.json`:
 
 ```json
-"build": "rm -rf content && git clone --depth 1 https://github.com/ivan-14-trifonov/songs_info.git content && rm -rf content/.git && next build"
+"build": "rm -rf content && git clone --depth 1 https://github.com/ivan-14-trifonov/songs_info.git content && rm -rf content/.git && npm run sync-content-assets && next build"
 ```
 
 Порядок действий:
 1. `rm -rf content` — удаляет старую папку (если осталась с предыдущего билда)
 2. `git clone --depth 1 ...` — клонирует последний коммит контент-репозитория (без полной истории для скорости)
 3. `rm -rf content/.git` — удаляет `.git`, чтобы внутренности репозитория не попали в сборку
-4. `next build` — запускает сборку Next.js
+4. `npm run sync-content-assets` — копирует картинки из одноимённых папок статей в `public/content-assets/`
+5. `next build` — запускает сборку Next.js
 
 Таким образом на сайте всегда актуальная версия контента без необходимости вручную обновлять субмодули.
 
