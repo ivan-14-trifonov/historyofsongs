@@ -8,6 +8,8 @@ interface MarkdownContentProps {
   assetBasePath?: string;
 }
 
+const spoilerHref = '#markdown-spoiler';
+
 function isExternalAssetPath(src: string): boolean {
   return /^(?:[a-z][a-z0-9+.-]*:|\/)/i.test(src);
 }
@@ -83,7 +85,7 @@ function escapeMarkdownLinkText(text: string): string {
 
 function renderSpoilers(content: string): string {
   return content.replace(/(?<!\\)\|\|([\s\S]+?)(?<!\\)\|\|/g, (_, text: string) => {
-    return `[${escapeMarkdownLinkText(text)}](spoiler:)`;
+    return `[${escapeMarkdownLinkText(text)}](${spoilerHref})`;
   });
 }
 
@@ -116,7 +118,7 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
               );
             }
 
-            if (href === 'spoiler:') {
+            if (href === spoilerHref) {
               return (
                 <span className="markdown-spoiler" role="button" tabIndex={0}>
                   {children}
