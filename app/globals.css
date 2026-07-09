@@ -219,6 +219,33 @@ footer {
   text-align: center;
 }
 
+.markdown-spoiler {
+  display: inline;
+  cursor: pointer;
+  border-radius: 3px;
+  color: transparent;
+  background-color: #9a9a9a;
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.16) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.16) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.12) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.12) 75%);
+  background-position: 0 0, 0 6px, 6px -6px, -6px 0;
+  background-size: 12px 12px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.2em;
+  transition: color 0.15s ease, background-color 0.15s ease, background-image 0.15s ease;
+}
+
+.markdown-spoiler:focus,
+.markdown-spoiler:active {
+  color: inherit;
+  background-color: rgba(154, 154, 154, 0.22);
+  background-image: none;
+  outline: none;
+}
+
 .markdown-content ul,
 .markdown-content ol {
   margin-bottom: 1rem;

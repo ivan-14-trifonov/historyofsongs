@@ -39,6 +39,16 @@ function getTextFromChildren(children: ReactNode): string {
   return '';
 }
 
+function escapeMarkdownLinkText(text: string): string {
+  return text.replace(/([\\[\]])/g, '\\$1');
+}
+
+function renderSpoilers(content: string): string {
+  return content.replace(/(?<!\\)\|\|([\s\S]+?)(?<!\\)\|\|/g, (_, text: string) => {
+    return `[${escapeMarkdownLinkText(text)}](spoiler:)`;
+  });
+}
+
 export default function MarkdownContent({ content, assetBasePath }: MarkdownContentProps) {
   return (
     <div className="markdown-content">
@@ -67,11 +77,19 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
               );
             }
 
+            if (href === 'spoiler:') {
+              return (
+                <span className="markdown-spoiler" role="button" tabIndex={0}>
+                  {children}
+                </span>
+              );
+            }
+
             return <a href={href} {...props}>{children}</a>;
           },
         }}
       >
-        {content}
+        {renderSpoilers(content)}
       </ReactMarkdown>
     </div>
   );
