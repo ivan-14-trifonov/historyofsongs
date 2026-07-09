@@ -197,6 +197,24 @@ footer {
   border-radius: 4px;
 }
 
+.markdown-audio {
+  display: block;
+  margin: 1rem 0;
+}
+
+.markdown-audio audio {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+}
+
+.markdown-audio-caption {
+  display: block;
+  margin-top: 0.35rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
 .markdown-content ul,
 .markdown-content ol {
   margin-bottom: 1rem;
