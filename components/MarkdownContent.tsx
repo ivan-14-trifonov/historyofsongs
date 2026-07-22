@@ -130,12 +130,45 @@ function renderSpoilers(content: string): string {
   });
 }
 
+function renderBracketedText(children: ReactNode): ReactNode {
+  if (typeof children === 'string' || typeof children === 'number') {
+    const text = String(children);
+    const parts = text.split(/(\[[^\]\n]+\])/g);
+
+    if (parts.length === 1) {
+      return children;
+    }
+
+    return parts.map((part, index) => (
+      /^\[[^\]\n]+\]$/.test(part)
+        ? <sup className="markdown-bracketed-text" key={index}>{part}</sup>
+        : part
+    ));
+  }
+
+  if (Array.isArray(children)) {
+    return children.map(renderBracketedText);
+  }
+
+  return children;
+}
+
 export default function MarkdownContent({ content, assetBasePath }: MarkdownContentProps) {
   return (
     <div className="markdown-content">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
+          p: ({ children }) => <p>{renderBracketedText(children)}</p>,
+          h1: ({ children }) => <h1>{renderBracketedText(children)}</h1>,
+          h2: ({ children }) => <h2>{renderBracketedText(children)}</h2>,
+          h3: ({ children }) => <h3>{renderBracketedText(children)}</h3>,
+          h4: ({ children }) => <h4>{renderBracketedText(children)}</h4>,
+          h5: ({ children }) => <h5>{renderBracketedText(children)}</h5>,
+          h6: ({ children }) => <h6>{renderBracketedText(children)}</h6>,
+          li: ({ children }) => <li>{renderBracketedText(children)}</li>,
+          td: ({ children }) => <td>{renderBracketedText(children)}</td>,
+          th: ({ children }) => <th>{renderBracketedText(children)}</th>,
           img: ({ src = '', alt = '', ...props }) => {
             const imageSrc = resolveAssetPath(src, assetBasePath);
             return <img src={imageSrc} alt={alt} loading="lazy" {...props} />;
