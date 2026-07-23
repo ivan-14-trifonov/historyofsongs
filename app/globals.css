@@ -193,11 +193,13 @@ footer {
   color: #777;
   font-size: 0.72em;
   line-height: 0;
-  transition: color 0.15s ease;
 }
 
-.markdown-bracketed-text:hover {
+.markdown-sources-section .markdown-bracketed-text {
   color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  vertical-align: baseline;
 }
 
 .markdown-content img {
