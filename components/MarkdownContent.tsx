@@ -220,7 +220,14 @@ function renderParagraph(children: ReactNode, className?: string, assetBasePath?
   if (childNodes.length === 1) {
     const image = childNodes[0];
 
-    if (isValidElement<{ src?: string; alt?: string }>(image) && image.type === 'img') {
+    if (
+      isValidElement<{
+        src?: string;
+        alt?: string;
+        node?: { tagName?: string };
+      }>(image)
+      && (image.type === 'img' || image.props.node?.tagName === 'img')
+    ) {
       const src = resolveAssetPath(image.props.src ?? '', assetBasePath);
       const alt = image.props.alt ?? '';
       const captionSeparatorIndex = alt.indexOf(':');
@@ -260,7 +267,7 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
           li: ({ children }) => <li>{renderBracketedText(children)}</li>,
           td: ({ children }) => <td>{renderBracketedText(children)}</td>,
           th: ({ children }) => <th>{renderBracketedText(children)}</th>,
-          img: ({ src = '', alt = '', ...props }) => {
+          img: ({ node: _node, src = '', alt = '', ...props }) => {
             const imageSrc = resolveAssetPath(src, assetBasePath);
             return <img src={imageSrc} alt={alt} loading="lazy" {...props} />;
           },
