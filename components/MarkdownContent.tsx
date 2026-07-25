@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import ExclusiveAudio from './ExclusiveAudio';
 
 interface MarkdownContentProps {
   content: string;
@@ -307,9 +308,9 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
               return (
                 <span className="markdown-audio">
                   {label && <span className="markdown-audio-caption">{caption}</span>}
-                  <audio controls preload="metadata" src={audioSrc}>
+                  <ExclusiveAudio src={audioSrc}>
                     <a href={audioSrc}>{label}</a>
-                  </audio>
+                  </ExclusiveAudio>
                 </span>
               );
             }
