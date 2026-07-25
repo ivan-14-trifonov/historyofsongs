@@ -249,8 +249,14 @@ function renderParagraph(children: ReactNode, className?: string, assetBasePath?
     }
 
     if (
-      isValidElement<{ node?: { tagName?: string } }>(child)
+      isValidElement<{
+        children?: ReactNode;
+        href?: string;
+        node?: { tagName?: string };
+      }>(child)
       && (child.type === 'a' || child.props.node?.tagName === 'a')
+      && !/^audio:\s*/i.test(getTextFromChildren(child.props.children))
+      && child.props.href !== spoilerHref
     ) {
       return (
         <p className={`markdown-link-paragraph ${className ?? ''}`.trim()}>

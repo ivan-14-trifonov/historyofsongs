@@ -233,6 +233,7 @@ footer {
 .markdown-audio audio {
   display: block;
   width: 100%;
+  min-width: min(100%, 520px);
   max-width: 520px;
   margin: 0 auto;
 }
