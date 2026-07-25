@@ -218,18 +218,18 @@ function renderParagraph(children: ReactNode, className?: string, assetBasePath?
   const childNodes = Children.toArray(children);
 
   if (childNodes.length === 1) {
-    const image = childNodes[0];
+    const child = childNodes[0];
 
     if (
       isValidElement<{
         src?: string;
         alt?: string;
         node?: { tagName?: string };
-      }>(image)
-      && (image.type === 'img' || image.props.node?.tagName === 'img')
+      }>(child)
+      && (child.type === 'img' || child.props.node?.tagName === 'img')
     ) {
-      const src = resolveAssetPath(image.props.src ?? '', assetBasePath);
-      const alt = image.props.alt ?? '';
+      const src = resolveAssetPath(child.props.src ?? '', assetBasePath);
+      const alt = child.props.alt ?? '';
       const captionSeparatorIndex = alt.indexOf(':');
       const caption = captionSeparatorIndex >= 0
         ? alt.slice(captionSeparatorIndex + 1).trim()
@@ -245,6 +245,17 @@ function renderParagraph(children: ReactNode, className?: string, assetBasePath?
           </figure>
         );
       }
+    }
+
+    if (
+      isValidElement<{ node?: { tagName?: string } }>(child)
+      && (child.type === 'a' || child.props.node?.tagName === 'a')
+    ) {
+      return (
+        <p className={`markdown-link-paragraph ${className ?? ''}`.trim()}>
+          {child}
+        </p>
+      );
     }
   }
 

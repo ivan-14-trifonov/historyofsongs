@@ -189,6 +189,10 @@ footer {
   margin-bottom: 1rem;
 }
 
+.markdown-link-paragraph {
+  text-align: center;
+}
+
 .markdown-bracketed-text {
   color: #777;
   font-size: 0.72em;
