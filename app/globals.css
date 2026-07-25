@@ -211,6 +211,16 @@ footer {
   border-radius: 4px;
 }
 
+.markdown-image {
+  display: block;
+  margin: 1rem 0;
+}
+
+.markdown-image img {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
 .markdown-audio {
   display: block;
   margin: 1rem 0;

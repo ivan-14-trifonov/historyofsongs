@@ -232,6 +232,23 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
           th: ({ children }) => <th>{renderBracketedText(children)}</th>,
           img: ({ src = '', alt = '', ...props }) => {
             const imageSrc = resolveAssetPath(src, assetBasePath);
+            const captionSeparatorIndex = alt.indexOf(':');
+            const imageAlt = captionSeparatorIndex >= 0
+              ? alt.slice(0, captionSeparatorIndex).trim()
+              : alt;
+            const caption = captionSeparatorIndex >= 0
+              ? alt.slice(captionSeparatorIndex + 1).trim()
+              : '';
+
+            if (caption) {
+              return (
+                <span className="markdown-image">
+                  <img src={imageSrc} alt={imageAlt} loading="lazy" {...props} />
+                  <span className="markdown-audio-caption">{caption}</span>
+                </span>
+              );
+            }
+
             return <img src={imageSrc} alt={alt} loading="lazy" {...props} />;
           },
           blockquote: ({ children, className }) => {
