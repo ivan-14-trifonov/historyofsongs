@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { cloneElement, isValidElement } from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -214,13 +214,43 @@ function renderBracketedText(children: ReactNode): ReactNode {
   return children;
 }
 
+function renderParagraph(children: ReactNode, className?: string, assetBasePath?: string): ReactNode {
+  const childNodes = Children.toArray(children);
+
+  if (childNodes.length === 1) {
+    const image = childNodes[0];
+
+    if (isValidElement<{ src?: string; alt?: string }>(image) && image.type === 'img') {
+      const src = resolveAssetPath(image.props.src ?? '', assetBasePath);
+      const alt = image.props.alt ?? '';
+      const captionSeparatorIndex = alt.indexOf(':');
+      const caption = captionSeparatorIndex >= 0
+        ? alt.slice(captionSeparatorIndex + 1).trim()
+        : '';
+
+      if (caption) {
+        const imageAlt = alt.slice(0, captionSeparatorIndex).trim();
+
+        return (
+          <figure className={`markdown-image ${className ?? ''}`.trim()}>
+            <img src={src} alt={imageAlt} loading="lazy" />
+            <figcaption className="markdown-audio-caption">{caption}</figcaption>
+          </figure>
+        );
+      }
+    }
+  }
+
+  return <p className={className}>{renderBracketedText(children)}</p>;
+}
+
 export default function MarkdownContent({ content, assetBasePath }: MarkdownContentProps) {
   return (
     <div className="markdown-content">
       <ReactMarkdown
         remarkPlugins={[remarkGfm, remarkMarkSourcesSection]}
         components={{
-          p: ({ children, className }) => <p className={className}>{renderBracketedText(children)}</p>,
+          p: ({ children, className }) => renderParagraph(children, className, assetBasePath),
           h1: ({ children, className }) => <h1 className={className}>{renderBracketedText(children)}</h1>,
           h2: ({ children, className }) => <h2 className={className}>{renderBracketedText(children)}</h2>,
           h3: ({ children, className }) => <h3 className={className}>{renderBracketedText(children)}</h3>,
@@ -232,23 +262,6 @@ export default function MarkdownContent({ content, assetBasePath }: MarkdownCont
           th: ({ children }) => <th>{renderBracketedText(children)}</th>,
           img: ({ src = '', alt = '', ...props }) => {
             const imageSrc = resolveAssetPath(src, assetBasePath);
-            const captionSeparatorIndex = alt.indexOf(':');
-            const imageAlt = captionSeparatorIndex >= 0
-              ? alt.slice(0, captionSeparatorIndex).trim()
-              : alt;
-            const caption = captionSeparatorIndex >= 0
-              ? alt.slice(captionSeparatorIndex + 1).trim()
-              : '';
-
-            if (caption) {
-              return (
-                <span className="markdown-image">
-                  <img src={imageSrc} alt={imageAlt} loading="lazy" {...props} />
-                  <span className="markdown-audio-caption">{caption}</span>
-                </span>
-              );
-            }
-
             return <img src={imageSrc} alt={alt} loading="lazy" {...props} />;
           },
           blockquote: ({ children, className }) => {
